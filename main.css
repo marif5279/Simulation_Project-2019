@@ -1,0 +1,121 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* ====== STYLESHEET ======= */
+
+#graph-root {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.header {
+	display: block;
+	padding: 25px 25px 5px;
+}
+
+h1, heading {
+	font-weight: bolder;
+	font-size: 25px;
+	font-family: verdana, serif;
+	margin-bottom: 15px;
+	display: block;
+}
+
+#btn-wrapper {
+	padding-left: 25px;
+	padding-bottom: 25px;
+}
+
+#btn-wrapper button {
+	font-family: verdana, sans-serif;
+	padding: 14px 32px;
+	border: none;
+	background-color: aqua;
+	border-radius: 4px;
+	font-size: 20px;
+	font-weight: bolder;
+	cursor: pointer;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+#btn-wrapper label div {
+	margin-bottom: 5px;
+	font-weight: bold;
+	font-family: verdana, serif;
+}
+
+#btn-wrapper label {
+	display: block;
+	margin-bottom: 10px;
+}
+
+#btn-wrapper label input[type="text"] {
+	padding: 16px;
+}
+
+#btn-wrapper #restart-btn {
+	display: none;
+}
+
+.formula {
+	font-family: 'Courier New', Courier, monospace;
+	font-weight: bold;
+	padding: 30px 10px 15px;
+}
+
+ul {
+	display: block;
+	padding: 5px 5px;
+}
+
+ul li {
+	padding: 10px 10px;
+}

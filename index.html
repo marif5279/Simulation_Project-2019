@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Simulation Project</title>
+
+    <link rel="stylesheet" type = "text/css" href = "main.css" />
+    
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js">
+    </script>
+</head>
+<body>
+    <div class = "header">
+        <heading>
+            Luminosity Simulation
+        </heading>
+        <p>
+            Most celestial bodies emit a set luminosity which is determined by its distance and apparent brightness.
+        </p>
+        <br/>
+        <p>Apparent Brightness can be defined by the formula:</p>
+        <div class = "formula">
+            B = L / (4 pi d^2)
+        </div>
+        <ul>
+            <li>L is Luminosity (Watts or Joules per Seconds)</li>
+            <li>D is the Distance (Meters)</td>
+            <li>B is the Brightness (Watts per Meter Second)</li>
+        </ul>
+    </div>
+
+    <div id = "btn-wrapper">
+        <label>
+            <div>Luminosity (n * 10^9)</div>
+            <input type = "text" id = "luminosity" />
+        </label>
+        
+        <button id = "start-btn">
+            Start
+        </button>
+        <button id = "restart-btn">
+            Restart
+        </button>
+    </div>
+    
+    <div id = "root"></div>
+    <div id = "graph-root"></div>
+
+    <script src = "main.js">
+    </script>
+</body>
+</html>
