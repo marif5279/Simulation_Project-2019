@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Simulation Project</title>
+    <title>Apparent Brightness Simulation</title>
 
     <link rel="stylesheet" type = "text/css" href = "main.css" />
     
@@ -15,26 +15,42 @@
 <body>
     <div class = "header">
         <heading>
-            Luminosity Simulation
+            Apparent Magnitude Simulation
         </heading>
         <p>
-            Most celestial bodies emit a set luminosity which is determined by its distance and apparent brightness.
+            Most celestial bodies emit a set brightness which is determined by its distance and luminosity among other factors.
+            <br />
+            Brightness can also be referred to as the Magnitude of the celestial body.
+            <br />
+            Apparent Brightness is measured in relation to Zero Point Luminosity, Absolute Brightness/Magnitude, 
+            and the other factors named above.
         </p>
         <br/>
-        <p>Apparent Brightness can be defined by the formula:</p>
+        <p>Apparent Brightness is denoted by the formula:</p>
         <div class = "formula">
-            B = L / (4 pi d^2)
+            B = A - 5 * 5 * log10(D)
+        </div>
+        <ul>
+            <li>A is Absolute Magnitude</li>
+            <li>D is Distance (Parsecs)</li>
+        </ul>
+        <p>Absolute Brightness is denoted by the formula:</p>
+        <div class = "formula">
+            A = -2.5 * log10(L/zL)
         </div>
         <ul>
             <li>L is Luminosity (Watts or Joules per Seconds)</li>
-            <li>D is the Distance (Meters)</td>
-            <li>B is the Brightness (Watts per Meter Second)</li>
+            <li>zL is Zero Point Luminosity (Constant with the value 3.0128 * 10^28)</li>
+	
+        </p>
+	<br/>
+	For more information, consult the readings and sources below the canvas.
         </ul>
     </div>
 
     <div id = "btn-wrapper">
         <label>
-            <div>Luminosity (n * 10^9)</div>
+            <div>Luminosity (10^n, -295 < n < 309, default: 100)</div>
             <input type = "text" id = "luminosity" />
         </label>
         
@@ -47,8 +63,29 @@
     </div>
     
     <div id = "root"></div>
-    <div id = "graph-root"></div>
 
+    <div class = "sources">
+    
+        <heading>Sources & Further Reading</heading>
+        <ul>
+            <li>
+                <a href = "https://www.omnicalculator.com/physics/luminosity">
+                    Omnicalculator - Luminosity
+                </a>
+            </li>
+            <li>
+                <a href = "https://www.space.com/21640-star-luminosity-and-magnitude.html">
+                    space.com - Star Luminosity and Magnitude
+                </a>
+            </li>
+            <li>
+                <a href = "http://articles.adsabs.harvard.edu/cgi-bin/nph-iarticle_query?bibcode=2000JBAA..110..203H&db_key=AST&page_ind=0">
+                    David W. Hughes - Brightness during a Solar Eclipse
+                </a>
+            </li>
+        </ul>
+    </div>
+        
     <script src = "main.js">
     </script>
 </body>

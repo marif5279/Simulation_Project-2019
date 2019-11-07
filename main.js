@@ -1,7 +1,7 @@
 let currentX = 0;
 let currentY = 0;
 
-let luminosity = 1;
+let luminosity = Math.pow(10, 100);
 
 let starBody = {
     color: {
@@ -15,8 +15,8 @@ let starBody = {
         y: 0
     },
     size: {
-        w: 360,
-        h: 360
+        w: 300,
+        h: 300
     }
 }
 
@@ -31,8 +31,16 @@ let planetBody = {
     }
 }
 
-let calculateBrightness = function (distance, _luminosity) {
-    return _luminosity / (4 * Math.PI * Math.pow(distance, 2));
+let zeroPointLuminosity = 3.0128 * 10e28;
+
+let calculateAbsoluteBrightness = function (_luminosity) {
+    return -2.5 * Math.log10(_luminosity/zeroPointLuminosity);
+}
+
+let calculateApparentBrightness = function (distance, _luminosity) {
+    let absMag = calculateAbsoluteBrightness(_luminosity);
+
+    return absMag - 5 + 5 * Math.log10(distance);
 }
 
 let spaceSketch = function (s) {
@@ -43,34 +51,18 @@ let spaceSketch = function (s) {
         myCanv.parent('root');
 
         starBody.pos = {
-            x: s.windowWidth * 0.5,
-            y: s.windowHeight * 0.5
+            x: s.windowWidth - 180,
+            y: s.windowHeight * 0.5 // Vertical centering
         }
    }
 
    s.draw = function () {
         s.background(0);
 
-        let distanceBetweenBodies = (starBody.pos.x - (planetBody.pos.x + ((starBody.size.w / 2) + (planetBody.size.w / 2)) ));
+        let distanceBetweenBodies = Math.abs(starBody.pos.x - planetBody.pos.x);
 
-        let starBodyBrightness = calculateBrightness(distanceBetweenBodies, luminosity * ( Math.pow(10, 9) ));
+        let starBodyBrightness = calculateApparentBrightness(distanceBetweenBodies, luminosity).toFixed(4);
 
-        // Draws the "glow" from the
-        // main celestial body indicating luminosity
-        s.fill(
-            starBody.color.r, 
-            starBody.color.g, 
-            starBody.color.b,
-            60
-        );
-
-        s.ellipse(
-            starBody.pos.x, 
-            starBody.pos.y, 
-            starBodyBrightness, 
-            starBodyBrightness
-        );
-        
         // Updates mouse position value for
         // mouse tracking outside of `draw` function
         currentX = s.mouseX;
@@ -82,6 +74,32 @@ let spaceSketch = function (s) {
             x: currentX,
             y: currentY
         };
+
+        // Draws the "glow" from the
+        // main celestial body indicating brightness
+        // It's color is a dim yellow if the Apparent Magnitude
+        // is positive, and red if it's negative
+        if (starBodyBrightness >= 0)
+            s.fill(
+                starBody.color.r, 
+                starBody.color.g, 
+                starBody.color.b,
+                90
+            );
+        else
+            s.fill(
+                255,
+                72,
+                0,
+                90
+            )
+
+        s.ellipse(
+            starBody.pos.x, 
+            starBody.pos.y, 
+            Math.abs(starBodyBrightness) * 5, 
+            Math.abs(starBodyBrightness) * 5
+        );
 
         // Draws the celestial body providing 
         // a light source (i.e. a star) that dynamically 
@@ -108,20 +126,51 @@ let spaceSketch = function (s) {
             planetBody.size.w, 
             planetBody.size.h
         );
+        
 
         // Draws numerical data values as text
         s.fill(255)
         s.textSize(20);
-        s.text("Apparent Brighness", 40, 40);
+        s.text("Apparent Magnitude/Brightness", 40, 40);
 
         s.textSize(32);
         s.text(starBodyBrightness, 40, 80);
 
         s.textSize(20);
-        s.text("Distance", 40, 120);
+        s.text("Absolute Magnitude/Brightness", 40, 120);
 
         s.textSize(32);
-        s.text(distanceBetweenBodies, 40, 160);
+        s.text(calculateAbsoluteBrightness(luminosity).toFixed(4), 40, 160);
+
+        s.textSize(20);
+        s.text("Distance", 40, 200);
+
+        s.textSize(32);
+        s.text(distanceBetweenBodies, 40, 240);
+        
+        // Draws the Key
+        s.fill(
+            starBody.color.r, 
+            starBody.color.g, 
+            starBody.color.b
+        );
+        s.rect(40, 270, 70, 40);
+        s.fill(255);
+        s.textSize(20);
+        s.text("Positive Apparent Magnitude", 120, 300);
+
+        s.fill(
+            255,
+            72,
+            0
+        );
+        s.rect(40, 320, 70, 40);
+        s.fill(255);
+        s.textSize(20);
+        s.text("Negative Apparent Magnitude", 120, 350);
+
+        s.textSize(32);
+        s.text(distanceBetweenBodies, 40, 240);
 
    }
 
@@ -130,8 +179,17 @@ let spaceSketch = function (s) {
    }
 }
 
+// Update the luminosity with the text box value
 let luminosityBox = document.getElementById('luminosity').addEventListener('change', function (e) {
-    luminosity = parseInt(e.target.value);
+    // If text box is empty, reset the value to 100
+    if (e.target.value.length < 1)
+        luminosity = Math.pow(10, 100);
+    
+    else if (parseFloat(e.target.value) > 308)
+        luminosity = Math.pow(10, 308);
+    
+    else
+        luminosity = Math.pow(10, parseFloat(e.target.value));
 })
 
 let startBtn = document.getElementById('start-btn').addEventListener('click', function (e) {
@@ -144,6 +202,9 @@ let restartBtn = document.getElementById('restart-btn').addEventListener('click'
     document.getElementById('root').innerHTML = "";
     document.getElementById('start-btn').style.display = "inline-block";
     e.target.style.display = "none";
+    
+    document.getElementById('luminosity').value = 100;
+    luminosity = 100;
 });
 
 
